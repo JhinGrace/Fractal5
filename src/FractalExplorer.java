@@ -2,12 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+
 
 public class FractalExplorer {
     private int size;
     private JFrame frame;
-    private JImageDisplay img;
+    public JImageDisplay img;
     private JButton resetButton;
     private JButton saveButton;
     private JComboBox combobox;
@@ -30,7 +35,6 @@ public class FractalExplorer {
         combobox.addItem(new BurningShip());
         frame.getContentPane().add(Npanel, BorderLayout.NORTH);
         frame.getContentPane().add(Spanel, BorderLayout.SOUTH);
-
         JLabel label = new JLabel("Fractal type:");
         Npanel.add(label);
         Npanel.add(combobox);
@@ -85,6 +89,13 @@ public class FractalExplorer {
                 FileFilter filter = new FileNameExtensionFilter("PNG Images", "png");
                 chooser.setFileFilter(filter);
                 chooser.setAcceptAllFileFilterUsed(false);
+                if (chooser.showSaveDialog(img) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        ImageIO.write(img.img, "png", chooser.getSelectedFile());
+                    } catch (IOException exc) {
+                        JOptionPane.showMessageDialog(frame, exc.getMessage(), "Cannot Save Image", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         }
     }
