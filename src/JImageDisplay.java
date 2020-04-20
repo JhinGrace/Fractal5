@@ -2,7 +2,7 @@ import java.awt.image.*;
 import java.awt.*;
 
 public class JImageDisplay extends javax.swing.JComponent {
-private java.awt.image.BufferedImage img;
+public java.awt.image.BufferedImage img;
 public JImageDisplay(int width, int height) {
     img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     Dimension imgDimensions = new Dimension(width,height);
